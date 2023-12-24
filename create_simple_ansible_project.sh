@@ -25,7 +25,7 @@ cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/$TEMPLATES_DIR/$INDEX_HTML_J2
 {{ INDEX_HTML_CONTENT | default("Example Index Content") }}
 EOF
 
-# Wstawianie zawartości do plików
+# Wstawianie zawartości do plików (tasks)
 cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/tasks/$TASKS_MAIN
 ---
 - name: Install nginx
@@ -47,6 +47,7 @@ cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/tasks/$TASKS_MAIN
   notify: Restart nginx
 EOF
 
+# Wstawianie zawartości do plików (templates)
 cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/$TEMPLATES_DIR/$NGINX_CONF_J2
 # templates/nginx.conf.j2
 
@@ -83,6 +84,7 @@ http {
 }
 EOF
 
+# Wstawianie zawartości do plików (handlers)
 cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/$HANDLERS_DIR/$HANDLERS_MAIN
 ---
 # handlers file for $ROLE_NAME
@@ -100,7 +102,7 @@ cat <<EOF > $PROJECT_NAME/$INVENTORY_FILE
 127.0.0.1 ansible_connection=local
 EOF
 
-# Tworzenie playbooku
+# Tworzenie playbooka nadrzędnego
 cat <<EOF > $PROJECT_NAME/$PLAYBOOK_NAME.yml
 ---
 - name: Configure and deploy web server
