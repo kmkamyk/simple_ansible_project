@@ -12,6 +12,7 @@ TEMPLATES_DIR="templates"
 HANDLERS_DIR="handlers"
 INVENTORY_FILE="inventory.ini"
 INDEX_HTML_J2="index.html.j2"
+ROLE_VERSION="1.0.0"
 
 # Tworzenie katalogu projektu
 mkdir -p $PROJECT_NAME/roles/$ROLE_NAME/{tasks,$FILES_DIR,$TEMPLATES_DIR,$HANDLERS_DIR}
@@ -84,6 +85,32 @@ http {
 }
 EOF
 
+# Tworzenie pliku metadata roli
+cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/meta/main.yml
+galaxy_info:
+  author: Kamil
+  description: Your role description
+  license:  MIT
+  min_ansible_version: 2.10
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+        - 9
+    - name: Debian
+      versions:
+        - stretch
+  galaxy_tags:
+    - web
+    - nginx
+  company: Pytlik
+  license_file: LICENSE
+  min_ansible_version: 2.9
+  role_name: $ROLE_NAME
+  version: $ROLE_VERSION  # Ustaw odpowiednią wersję roli
+EOF
+
 # Wstawianie zawartości do plików (handlers)
 cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/$HANDLERS_DIR/$HANDLERS_MAIN
 ---
@@ -123,7 +150,9 @@ cat <<EOF > $PROJECT_NAME/$PLAYBOOK_NAME.yml
     nginx_server_name: "localhost"
     INDEX_HTML_CONTENT: "Hallo World"
   roles:
-    - $ROLE_NAME
+    - $ROLE_NAME:
+      version: $ROLE_VERSION
+
 EOF
 
 echo "Struktura katalogów, pliki, zawartość i plik inventory zostały utworzone w katalogu $PROJECT_NAME."
