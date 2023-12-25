@@ -12,40 +12,6 @@ TEMPLATES_DIR="templates"
 HANDLERS_DIR="handlers"
 INVENTORY_FILE="inventory.ini"
 INDEX_HTML_J2="index.html.j2"
-# Funkcja do pobierania parametru lub używania wartości domyślnej z ustawień
-get_param() {
-    if [ -n "$1" ]; then
-        echo "$1"
-    else
-        echo "$2"
-    fi
-}
-
-# Pobieranie wszystkich parametrów z funkcji get_param
-PARAM1=$(get_param "$1" "$PROJECT_NAME")
-PARAM2=$(get_param "$2" "$ROLE_NAME")
-PARAM3=$(get_param "$3" "$PLAYBOOK_NAME")
-PARAM4=$(get_param "$4" "$NGINX_CONF_J2")
-PARAM5=$(get_param "$5" "$HANDLERS_MAIN")
-PARAM6=$(get_param "$6" "$TASKS_MAIN")
-PARAM7=$(get_param "$7" "$FILES_DIR")
-PARAM8=$(get_param "$8" "$TEMPLATES_DIR")
-PARAM9=$(get_param "$9" "$HANDLERS_DIR")
-PARAM10=$(get_param "${10}" "$INVENTORY_FILE")
-PARAM11=$(get_param "${11}" "$INDEX_HTML_J2")
-
-# Teraz możesz używać zmiennych PARAM1, PARAM2, itd. w skrypcie
-echo "Parametr 1: $PARAM1"
-echo "Parametr 2: $PARAM2"
-echo "Parametr 3: $PARAM3"
-echo "Parametr 4: $PARAM4"
-echo "Parametr 5: $PARAM5"
-echo "Parametr 6: $PARAM6"
-echo "Parametr 7: $PARAM7"
-echo "Parametr 8: $PARAM8"
-echo "Parametr 9: $PARAM9"
-echo "Parametr 10: $PARAM10"
-echo "Parametr 11: $PARAM11"
 
 # Tworzenie katalogu projektu
 mkdir -p $PROJECT_NAME/roles/$ROLE_NAME/{tasks,$FILES_DIR,$TEMPLATES_DIR,$HANDLERS_DIR}
