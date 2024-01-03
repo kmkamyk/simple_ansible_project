@@ -7,7 +7,6 @@ PLAYBOOK_NAME="webserver_playbook"
 NGINX_CONF_J2="nginx.conf.j2"
 HANDLERS_MAIN="main.yml"
 TASKS_MAIN="main.yml"
-FILES_DIR="files"
 TEMPLATES_DIR="templates"
 HANDLERS_DIR="handlers"
 INVENTORY_FILE="inventory.ini"
@@ -15,7 +14,7 @@ INDEX_HTML_J2="index.html.j2"
 ROLE_VERSION="1.0.0"
 
 # Tworzenie katalogu projektu
-mkdir -p $PROJECT_NAME/roles/$ROLE_NAME/{tasks,meta,$FILES_DIR,$TEMPLATES_DIR,$HANDLERS_DIR}
+mkdir -p $PROJECT_NAME/roles/$ROLE_NAME/{tasks,meta,$TEMPLATES_DIR,$HANDLERS_DIR}
 touch $PROJECT_NAME/roles/$ROLE_NAME/tasks/$TASKS_MAIN
 touch $PROJECT_NAME/roles/$ROLE_NAME/$TEMPLATES_DIR/$NGINX_CONF_J2
 touch $PROJECT_NAME/roles/$ROLE_NAME/$TEMPLATES_DIR/$INDEX_HTML_J2
@@ -30,7 +29,7 @@ EOF
 cat <<EOF > $PROJECT_NAME/roles/$ROLE_NAME/tasks/$TASKS_MAIN
 ---
 - name: Install nginx
-  apt:
+  package:
     name: nginx
     state: present
   become: true
@@ -95,9 +94,7 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 7
-        - 8
-        - 9
+        - all
     - name: Debian
       versions:
         - stretch
@@ -150,8 +147,7 @@ cat <<EOF > $PROJECT_NAME/$PLAYBOOK_NAME.yml
     nginx_server_name: "localhost"
     INDEX_HTML_CONTENT: "Hallo World"
   roles:
-    - $ROLE_NAME:
-      version: $ROLE_VERSION
+    - $ROLE_NAME
 
 EOF
 
