@@ -133,7 +133,7 @@ cat <<EOF > $PROJECT_NAME/$PLAYBOOK_NAME.yml
   hosts: localhost
   become: true
   vars:
-    nginx_user: "www-data"
+    nginx_user: "root"
     nginx_worker_processes: "auto"
     nginx_error_log: "/var/log/nginx/error.log"
     nginx_pid: "/run/nginx.pid"
